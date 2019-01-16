@@ -61,6 +61,36 @@ function buildCharts(sample) {
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
+   
+    var abc=[];
+    data.sample_values.forEach( function(a,b){
+      abc.push({'key':b, 'val': a});
+    });
+    var ac= abc.sort( function(a,b){
+      return b.val - a.val;
+    });
+    var pieData = ac.slice(0,10);
+    console.log(data.otu_ids[0]);
+    pieData.forEach( function(a,b){
+      pieData[b].otuId = data.otu_ids[a.key]
+      pieData[b].otuLabel = data.otu_labels[a.key]
+    });
+    console.log(pieData);
+
+    var trace = {
+      type: "pie",
+      values: pieData.map( x => x.val),
+      labels: pieData.map( x => x.otuId),
+      hovertext: pieData.map( x => x.otuLabel)
+    };
+    var pieDS = [trace];
+    var layout = {
+        automargin: true,
+        showlegend: true,
+        annotations: false
+      };
+
+    Plotly.plot('pie', pieDS, layout, {responsive: true});
   });
 }
 
