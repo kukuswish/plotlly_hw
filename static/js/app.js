@@ -90,7 +90,7 @@ function buildCharts(sample) {
         annotations: false
       };
 
-    Plotly.plot('pie', pieDS, layout, {responsive: true});
+    Plotly.newPlot('pie', pieDS, layout, {responsive: true});
   });
 }
 
